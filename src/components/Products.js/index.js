@@ -1,7 +1,9 @@
 import { useLocation } from "react-router-dom"
 import UpdateProduct from "../DialogBox/UpdateProduct"
 import { useState } from "react"
-
+import { useDispatch, useSelector } from "react-redux"
+import { addToCart } from "../../Redux/action" 
+import toast from "react-hot-toast"
 const products = [
   {
     id: 1,
@@ -57,6 +59,9 @@ const products = [
 export default function Products() {
   const [status,setStatus] = useState(false)
   const {pathname} = useLocation()
+  const dispatch = useDispatch()
+ 
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -64,7 +69,7 @@ export default function Products() {
 
         <div className="product grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <a key={product.id} href={product.href} className="group relative">
+            <div key={product.id}  className="group relative">
               {pathname=="/admin"?<button className="absolute  border border-blue-500 top-2 right-2 bg-white p-1 rounded-full text-gray-400 hover:text-red-500 hover:bg-gray-100 focus:outline-none">
                 <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M11.414 10l3.293-3.293a1 1 0 10-1.414-1.414L10 8.586 6.707 5.293a1 1 0 10-1.414 1.414L8.586 10l-3.293 3.293a1 1 0 001.414 1.414L10 11.414l3.293 3.293a1 1 0 001.414-1.414L11.414 10z" clipRule="evenodd" />
@@ -84,13 +89,13 @@ export default function Products() {
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
-              <button class="bg-transparent mx-2 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              <button onClick={()=>{dispatch(addToCart(product));toast('Product added successfully')}} className="bg-transparent mx-2 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 Add to cart
               </button>
-              <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 Buy now
               </button>
-            </a>
+            </div>
           ))}
         </div>
       </div>

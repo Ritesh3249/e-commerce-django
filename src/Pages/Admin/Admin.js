@@ -5,11 +5,11 @@ const Admin = () => {
     return (
         <div className='flex'>
 
-            <aside id="default-sidebar" class=" top-0 left-0 z-40 w-64   transition-transform -translate-x-full  sm:translate-x-0" aria-label="Sidebar">
-                <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+            <aside id="default-sidebar" className=" top-0 left-0 z-40 w-64   transition-transform -translate-x-full  sm:translate-x-0" aria-label="Sidebar">
+                <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <h1 className="block text-sm font-medium leading-6 text-white ">Add product</h1>
                     <hr className='text-white' />
-                    <ul class="space-y-2 font-medium">
+                    <ul className="space-y-2 font-medium">
                         <li>
                             <div className="flex   flex-1 flex-col justify-center px-6  ">
 
@@ -81,13 +81,13 @@ const Admin = () => {
                                 </div>
                             </div>
                         </li>
-                        <button class="bg-transparent mx-2 hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  hover:border-transparent rounded">
+                        <button className="bg-transparent mx-2 hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  hover:border-transparent rounded">
                 Add Product
               </button>
                     </ul>
                 </div>
             </aside>
-            <div class="w-full">
+            <div className="w-full">
                 <h1 className='font-bold text-5xl'>Products</h1>
                  <Products/>
             </div>

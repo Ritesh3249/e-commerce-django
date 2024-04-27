@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useReducer, useState } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
   // ArrowPathIcon,
@@ -13,6 +13,8 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 import logo from "../../Assets/logo.png"
 import { Link, useLocation } from 'react-router-dom'
 import { getToken } from '../../HelperFunctions'
+import { useDispatch, useSelector } from 'react-redux'
+import Cart from '../../Pages/Cart'
 // const products = [
 //   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
 //   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
@@ -33,7 +35,10 @@ import { getToken } from '../../HelperFunctions'
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { pathname } = useLocation()
-  console.log("111", getToken())
+  const [cartOpen,setCartOpen] =useState(false)
+
+  const data = useSelector((state)=>state.cartData)
+ 
   return (
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -110,12 +115,12 @@ export default function Navbar() {
           </Link>
          {pathname=="/admin"||pathname=="/admin-sign-in"?"": <span className=" bottom-0 left-0 flex" style={{bottom: "-12px", left: "89px", position: "absolute" }}>
                   
-                  <div className="relative py-2">
+                  <div className="relative py-2" onClick={()=>setCartOpen(true)}>
                     <div className="t-0 absolute left-3">
-                      <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">3</p>
+                      <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">{data.length}</p>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="file: mt-4 h-6 w-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="file: mt-4 h-6 w-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                     </svg>
                   </div>
                 </span>}
@@ -187,17 +192,18 @@ export default function Navbar() {
                 >
                   Home
                 </Link>
+                {pathname=="/admin"||pathname=="/admin-sign-in"?"":
                 <span className=" bottom-0 left-0 flex" style={{bottom: "-12px", left: "89px", position: "absolute" }}>
                   
-                  <div className="relative py-2">
+                  <div className="relative py-2" onClick={()=>setCartOpen(true)}>
                     <div className="t-0 absolute left-3">
-                      <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">3</p>
+                      <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">{data.length}</p>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="file: mt-4 h-6 w-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="file: mt-4 h-6 w-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                     </svg>
                   </div>
-                </span>
+                </span>}
                 {/* <a
                   to="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
@@ -223,6 +229,8 @@ export default function Navbar() {
           </div>
         </Dialog.Panel>
       </Dialog>
+      <Cart open={cartOpen} setOpen={setCartOpen}/>
+
     </header>
   )
 }
