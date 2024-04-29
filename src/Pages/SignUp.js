@@ -1,17 +1,32 @@
 
 import { Link } from "react-router-dom"
 import logo from "../Assets/logo.png"
-export default function SignUp() {
+import { memo, useReducer } from "react";
+import { userData } from "../Redux/Auth/UserReducer";
+import { REGISTER_INITIAL_STATE, addRegisterValue, emptyRegisterValue, registerUser } from "../Redux/Auth/UserAction";
+import { useDispatch, useSelector } from 'react-redux'
+
+function SignUp() {
+
+  const [state, dispatch] = useReducer(userData, REGISTER_INITIAL_STATE);
+  // let data = useSelector((state)=>state.userData)
+   
+  const dataDispatch = useDispatch()
+  const handleChange = (e) => {
+    dispatch(addRegisterValue(e));
+  };
+
+  function submitData(e) {
+    e.preventDefault()
+    dataDispatch(registerUser(state))
+    dispatch(emptyRegisterValue());
+
+console.log(state)
+
+  }
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html className="h-full bg-white">
-        <body className="h-full">
-        ```
-      */}
+   
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -25,7 +40,7 @@ export default function SignUp() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6"  >
           <div>
               
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -37,6 +52,7 @@ export default function SignUp() {
                   name="name"
                   type="text"
                   required
+                  onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -53,6 +69,8 @@ export default function SignUp() {
                   type="email"
                   autoComplete="email"
                   required
+                  onChange={handleChange}
+
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -75,6 +93,8 @@ export default function SignUp() {
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  onChange={handleChange}
+
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -84,6 +104,7 @@ export default function SignUp() {
             <div>
               <button
                 type="submit"
+                onClick={submitData}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
@@ -102,3 +123,5 @@ export default function SignUp() {
     </>
   )
 }
+
+export default memo(SignUp)

@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, memo, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux'
@@ -40,11 +40,11 @@ const products = [
   // More products...
 ]
 
-export default function Cart({open, setOpen}) {
+ function Cart({open, setOpen}) {
 //   const [open, setOpen] = useState(true)
 const dispatch = useDispatch()
 const data = useSelector((state)=>state.cartData)
-console.log("434343",data)
+ 
  
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -173,3 +173,4 @@ console.log("434343",data)
     </Transition.Root>
   )
 }
+export default memo(Cart)

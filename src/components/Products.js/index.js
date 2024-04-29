@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import UpdateProduct from "../DialogBox/UpdateProduct"
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addToCart } from "../../Redux/action" 
 import toast from "react-hot-toast"
 const products = [
